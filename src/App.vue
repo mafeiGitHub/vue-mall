@@ -1,10 +1,31 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
-</template>
+    APP
+    <div>{{$store.state.username}}</div>
+    <div>{{$store.getters['newName']}}</div>
+    <button @click="mutationsFn">mutationsFn</button>
+   </div>
+ </template>
+<script>
+import { useStore } from 'vuex'
+export default {
+  name: 'App',
+  setup () {
+  // 使用vuex仓库
+    const store = useStore()
+    console.log(store.state.username)
+    // 使用根模块getters的数据
+    console.log(store.getters.newName)
+    const mutationsFn = () => {
+      // 3.提交根模块mutation函数
+      store.commit('updateName')
+      // 调用根模块actions函数
+      store.dispatch('updateName')
+    }
+    return { mutationsFn }
+  }
+}
+</script>
 
 <style lang="less">
 #app {
