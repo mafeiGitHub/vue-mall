@@ -1,31 +1,20 @@
 import { createStore } from 'vuex'
+import createPersistedstate from 'vuex-persistedstate'
+import cart from '@/store/modules/cart'
+import category from '@/store/modules/category'
+import user from '@/store/modules/user'
+
 // 创建vuex仓库并导出
 export default createStore({
-  state: {
-    // 数据
-    username: 'zs'
-  },
-  mutations: {
-    // 改数据函数
-    updateName (state) {
-      state.username = 'ls'
-    }
-  },
-  actions: {
-    // 请求数据函数
-    updateName (ctx) {
-      setTimeout(() => {
-        ctx.commit('updateName')
-      }, 1000)
-    }
-  },
   modules: {
-    // 分模块
+    cart,
+    category,
+    user
   },
-  getters: {
-    // vuex的计算属性
-    newName (state) {
-      return state.username
-    }
-  }
+  plugins: [
+    createPersistedstate({
+      key: 'vue-mall',
+      path: ['user', 'cart']
+    })
+  ]
 })
