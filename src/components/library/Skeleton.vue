@@ -1,6 +1,6 @@
 <template>
   <div class="skeleton" :style="{width,height}" :class="{shan:animated}">
-    <div CLASS="block" :style="{backgroundColor:bg}"></div>
+    <div class="block" :style="{backgroundColor:bg}"></div>
   </div>
 </template>
 

@@ -9,10 +9,16 @@
 </template>
 
 <script>
+import Skeleton from '@/components/library/Skeleton'
+
 export default {
   name: 'HomeSkeleton',
+  components: { Skeleton },
   props: {
-    bg: String
+    bg: {
+      type: String,
+      default: '#fff'
+    }
   }
 }
 </script>

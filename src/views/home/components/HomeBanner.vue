@@ -1,7 +1,7 @@
 <template>
-<div class="home-banner">
-  <Carousel :sliders="sliders"></Carousel>
-</div>
+  <div class="home-banner">
+    <Carousel :sliders="sliders" :auto-play="true"></Carousel>
+  </div>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
   setup () {
     const sliders = ref([])
     findBanner().then(data => {
-      console.log(data)
+      // console.log(data)/**/
       sliders.value = data.result
     })
     return { sliders }
@@ -32,12 +32,13 @@ export default {
   top: 0;
   z-index: 98
 }
-.carousel {
-::v-deep .carousel-btn.prev {
-  left: 270px;
-}
-::v-deep .carousel-indicator {
-  padding-left: 250px;
-}
+// 覆盖样式
+.xtx-carousel {
+  v-deep(.carousel-btn.prev){
+    left: 270px;
+  }
+  v-deep(.carousel-indicator) {
+    padding-left: 250px;
+  }
 }
 </style>

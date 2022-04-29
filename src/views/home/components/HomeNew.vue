@@ -4,19 +4,19 @@
       <template v-slot:right>
         <More path="/"></More>
       </template>
-      <div style="position: relative;height: 406px;">
+      <div ref="target" style="position: relative;height: 406px;">
         <Transition name="fade">
-          <ul v-if="goods.length" ref="pannel" class="goods-list">
+          <ul v-if="goods.length"  class="goods-list">
             <!--面板内容-->
-              <li v-for="item in goods" :key="item.id">
-                <router-link :to="`/product/${item.id}`">
-                  <img :src="item.picture" alt="">
-                  <p class="name ellipsis">{{ item.name }}</p>
-                  <p class="price">{{ item.price }}</p>
-                </router-link>
-              </li>
-            </ul>
-            <HomeSkeleton bg="#f0f9f4" v-else/>
+            <li v-for="item in goods" :key="item.id">
+              <router-link :to="`/product/${item.id}`">
+                <img :src="item.picture" alt="">
+                <p class="name ellipsis">{{ item.name }}</p>
+                <p class="price">{{ item.price }}</p>
+              </router-link>
+            </li>
+          </ul>
+          <HomeSkeleton bg="#f0f9f4" v-else/>
         </Transition>
       </div>
     </HomePanel>
@@ -27,21 +27,23 @@
 <script>
 import HomePanel from '@/views/home/components/HomePanel'
 import { findNew } from '@/api/home'
-import { ref } from 'vue'
 import More from '@/components/library/More'
+import { useLazyData } from '@/hooks'
+import HomeSkeleton from '@/views/home/components/HomeSkeleton'
 
 export default {
   name: 'HomeNew',
   components: {
     HomePanel,
-    More
+    More,
+    HomeSkeleton
   },
   setup () {
-    const goods = ref([])
-    findNew().then(data => {
-      goods.value = data.result
-    })
-    return { goods }
+    const { target, result } = useLazyData(findNew)
+
+    return {
+      goods: result, target
+    }
   }
 }
 </script>

@@ -87,9 +87,9 @@ export default {
       brands: []
     })
     findBrand().then(data => {
-      console.log(data)
+      // console.log(data)
       brand.brands = data.result
-      console.log(brand.brands)
+      // console.log(brand.brands)
     })
     return {
       menuList,
